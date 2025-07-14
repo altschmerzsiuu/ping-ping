@@ -5,6 +5,7 @@ const axios = require("axios");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// === Ping ke Render ===
 app.get("/ping-render", async (req, res) => {
   try {
     await axios.get(process.env.RENDER_PING_URL);
@@ -16,6 +17,7 @@ app.get("/ping-render", async (req, res) => {
   }
 });
 
+// === Ping ke Supabase ===
 app.get("/ping-supabase", async (req, res) => {
   const today = new Date().getDate();
   if (today % 2 !== 0) return res.status(200).send("⏭️ Supabase ping skipped (odd day)");
@@ -33,6 +35,11 @@ app.get("/ping-supabase", async (req, res) => {
     console.error(`[${new Date().toLocaleString()}] ❌ Supabase Ping Failed`, err.message);
     res.status(500).send("Supabase ping failed");
   }
+});
+
+// Optional: Endpoint ping untuk test
+app.get("/ping", (req, res) => {
+  res.send("Ping server is awake!");
 });
 
 app.listen(PORT, () => {
