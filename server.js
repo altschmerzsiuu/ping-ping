@@ -26,9 +26,6 @@ app.get("/ping-render", async (req, res) => {
 
 // ✅ Supabase ping (tiap tanggal genap)
 app.get("/ping-supabase", async (req, res) => {
-  const today = new Date().getDate();
-  if (today % 2 !== 0) return res.status(200).send("⏭️ Supabase ping skipped (odd day)");
-
   try {
     await axios.get(`${process.env.SUPABASE_API_URL}hewan`, {
       headers: {
